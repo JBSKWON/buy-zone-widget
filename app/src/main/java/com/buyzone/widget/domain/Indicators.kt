@@ -1,15 +1,22 @@
 package com.buyzone.widget.domain
 
+import kotlinx.serialization.Serializable
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+@Serializable
 enum class Timeframe { DAILY, WEEKLY }
+@Serializable
 enum class Comparison { LESS_OR_EQUAL, GREATER_OR_EQUAL }
+@Serializable
 enum class MovingAverage { SMA, EMA }
+@Serializable
 enum class IndicatorType { RSI, SMA_DEVIATION, EMA_DEVIATION, MA_SPREAD, MACD_HISTOGRAM, BOLLINGER_PERCENT_B }
 
+@Serializable
 data class PriceBar(val date: String, val close: Double)
 
+@Serializable
 data class IndicatorRule(
     val id: String,
     val type: IndicatorType,
@@ -43,6 +50,7 @@ data class IndicatorRule(
     }
 }
 
+@Serializable
 data class IndicatorSnapshot(
     val ruleId: String,
     val value: Double?,

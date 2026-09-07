@@ -18,6 +18,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.buyzone.widget.BuyZoneApplication
+import com.buyzone.widget.domain.TickerProfile
 
 class BuyZoneWidgetConfigActivity : ComponentActivity() {
     private var ticker by mutableStateOf("")
@@ -44,6 +46,8 @@ class BuyZoneWidgetConfigActivity : ComponentActivity() {
         if (normalized.isBlank() || widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) return
         getSharedPreferences("widget_bindings", MODE_PRIVATE)
             .edit().putString("widget_$widgetId", normalized).apply()
+        (application as BuyZoneApplication).container.profileStore.get(normalized)
+            ?: (application as BuyZoneApplication).container.profileStore.save(TickerProfile(normalized))
         setResult(Activity.RESULT_OK, Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId))
         finish()
     }

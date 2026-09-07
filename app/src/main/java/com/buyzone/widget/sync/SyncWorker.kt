@@ -6,9 +6,11 @@ import androidx.work.WorkerParameters
 
 class SyncWorker(context: Context, params: WorkerParameters) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
-        // The coordinator will load profiles, enforce the five-minute guard, fetch required
-        // timeframes, calculate snapshots, and invalidate all widgets bound to each ticker.
-        return Result.success()
+        return when (val result = SyncCoordinator(applicationContext).sync(inputData.getString(TICKER_KEY))) {
+            SyncResult.Success, SyncResult.NothingToDo, SyncResult.MissingToken,
+            is SyncResult.PermanentFailure -> Result.success()
+            SyncResult.TransientFailure -> Result.retry()
+        }
     }
 
     companion object {

@@ -1,9 +1,12 @@
 package com.buyzone.widget.domain
 
 import android.graphics.Color
+import kotlinx.serialization.Serializable
 
+@Serializable
 enum class CombinationMode { OR, AND }
 
+@Serializable
 data class TickerProfile(
     val ticker: String,
     val stageCount: Int = 3,
