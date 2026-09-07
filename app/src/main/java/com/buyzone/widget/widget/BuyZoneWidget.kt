@@ -5,6 +5,7 @@ import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.action.ActionParameters
 import androidx.glance.action.actionParametersOf
+import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
@@ -50,6 +51,8 @@ class BuyZoneWidget : GlanceAppWidget() {
                             actionParametersOf(TickerParameters.TICKER to ticker)
                         )
                     ))
+                } else {
+                    Text("Configure in app", modifier = GlanceModifier.clickable(actionStartActivity<com.buyzone.widget.MainActivity>()))
                 }
             }
         }
