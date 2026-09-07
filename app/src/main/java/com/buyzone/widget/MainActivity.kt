@@ -189,7 +189,13 @@ private fun RuleEditor(
     onChanged: () -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text("${rule.type} · ${rule.timeframe} · ${rule.comparison}")
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text("${rule.type} · ${rule.timeframe} · ${rule.comparison}")
+            TextButton(onClick = {
+                profileStore.save(ProfileEditor.removeIndicator(profile, rule.id))
+                onChanged()
+            }) { Text("Remove") }
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             rule.thresholds.forEachIndexed { index, threshold ->
                 var text by remember(rule.id, index, threshold) { mutableStateOf(threshold.toString()) }

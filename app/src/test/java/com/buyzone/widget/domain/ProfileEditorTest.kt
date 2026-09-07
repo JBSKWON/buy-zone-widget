@@ -23,4 +23,16 @@ class ProfileEditorTest {
         assertEquals(2, second.rules.size)
         assertTrue(second.rules.any { it.type == IndicatorType.SMA_DEVIATION && it.timeframe == Timeframe.DAILY })
     }
+
+    @Test
+    fun removesOnlyTheSelectedIndicatorRule() {
+        val withRules = ProfileEditor.addIndicator(
+            ProfileEditor.addIndicator(TickerProfile("TQQQ"), IndicatorType.RSI),
+            IndicatorType.SMA_DEVIATION
+        )
+        val removed = ProfileEditor.removeIndicator(withRules, withRules.rules.first().id)
+
+        assertEquals(1, removed.rules.size)
+        assertEquals(IndicatorType.SMA_DEVIATION, removed.rules.single().type)
+    }
 }

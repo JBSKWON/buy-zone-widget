@@ -1,6 +1,9 @@
 package com.buyzone.widget.domain
 
 object ProfileEditor {
+    fun removeIndicator(profile: TickerProfile, ruleId: String): TickerProfile =
+        profile.copy(rules = profile.rules.filterNot { it.id == ruleId })
+
     fun setStageCount(profile: TickerProfile, stageCount: Int): TickerProfile {
         val count = stageCount.coerceIn(1, 7)
         return profile.copy(
